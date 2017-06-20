@@ -1,0 +1,10 @@
+alias l="ls -lAhG"
+alias ls="ls -G"
+alias ll="ls -lAhG"
+alias dir="ll"
+alias cls="clear"
+alias git="hub"
+alias pcat="ccat $@"
+
+alias android-phone="emulator -avd Emulator-Api23-Default &"
+alias android-tablet="emulator -avd Nexus_10_API_25 &"

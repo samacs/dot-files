@@ -1,0 +1,8 @@
+*
+!.gitignore
+!.spacemacs
+!.bashrc
+!.bash_profile
+!.bash_aliases
+!.zshenv
+!.environment
