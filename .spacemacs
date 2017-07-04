@@ -55,6 +55,7 @@ values."
             shell-default-height 30
             shell-default-position 'bottom
             shell-default-term-shell "/bin/zsh")
+     shell-scripts
      ;; spell-checking
      syntax-checking
      ;; version-control
@@ -87,7 +88,8 @@ values."
      vagrant
      spotify
      search-engine
-     samacs
+     ;; slack
+     ;; samacs
      themes-megapack)
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -278,7 +280,7 @@ values."
    dotspacemacs-loading-progress-bar t
    ;; If non nil the frame is fullscreen when Emacs starts up. (default nil)
    ;; (Emacs 24.4+ only)
-   dotspacemacs-fullscreen-at-startup nil
+   dotspacemacs-fullscreen-at-startup t
    ;; If non nil `spacemacs/toggle-fullscreen' will not use native fullscreen.
    ;; Use to disable fullscreen animations in OSX. (default nil)
    dotspacemacs-fullscreen-use-non-native nil
@@ -390,6 +392,8 @@ you should place your code here."
   ;; Configure autopair
   ;; (autopair-global-mode)
 
+  ;; (load-file "~/.slack.el")
+
   ;; Configure multi-term
   (setq multi-term-program "/bin/zsh")
   (add-hook 'term-mode-hook
@@ -443,7 +447,7 @@ If you don't like default setup, modify it, with (KEY . COMMAND) format."
   ;; (add-hook 'ruby-mode-hook '())
   ;; (add-hook 'robe-mode-hook 'ac-robe-setup robe-mode)
   (eval-after-load 'company
-    '(push 'comapny-robe company-backends))
+    '(push 'company-robe company-backends))
   (eval-after-load 'ruby-mode-hook
     '(robe-start rvm-activate-corresponding-ruby))
 
@@ -553,6 +557,9 @@ If you don't like default setup, modify it, with (KEY . COMMAND) format."
   (global-set-key [S-up] 'windmove-up)
   (global-set-key [S-down] 'windmove-down)
 
+  (global-set-key (kbd "M-]") 'next-multiframe-window)
+  (global-set-key (kbd "M-[") 'previous-multiframe-window)
+
   (setq-default js2-basic-offset 2
                 js-indent-level 2)
   (defun my-web-mode-hook ()
@@ -586,7 +593,7 @@ If you don't like default setup, modify it, with (KEY . COMMAND) format."
  '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (autopair winum unfill solarized-theme restclient-helm ob-restclient madhat2r-theme fuzzy flymd flycheck-credo company-restclient know-your-http-well company-ansible gmail-message-mode ham-mode html-to-markdown edit-server yatemplate ruby-refactor pig-mode key-chord minimap apache-mode dockerfile-mode docker tablist docker-tramp async company-emacs-eclim eclim company-inf-ruby tern-auto-complete phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode bind-key packed avy iedit smartparens bind-map highlight evil helm helm-core projectile hydra dash helm-dash dash-at-point reveal-in-osx-finder rainbow-mode rainbow-identifiers pbcopy osx-trash osx-dictionary launchctl flycheck-pos-tip color-identifiers-mode erlang synonymous x86-lookup nasm-mode list-themes-here-theme vmd-mode zonokai-theme zenburn-theme zen-and-art-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme pastels-on-dark-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme firebelly-theme farmhouse-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme company-quickhelp pos-tip color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme smex yapfify yaml-mode xterm-color web-mode web-beautify vagrant-tramp vagrant tide typescript-mode tagedit swift-mode sql-indent spotify smeargle slime-company slime slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restclient rbenv pyvenv pytest pyenv-mode py-isort pug-mode projectile-rails rake inflections pip-requirements orgit org-projectile org-present org-pomodoro alert log4e gntp org-download omnisharp ob-http ob-elixir org nginx-mode mwim multi-term mmm-mode minitest markdown-toc markdown-mode magit-gitflow livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc jinja2-mode hy-mode htmlize helm-spotify multi helm-pydoc helm-gitignore helm-css-scss helm-company helm-c-yasnippet haml-mode go-guru go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck-mix flycheck feature-mode evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help engine-mode emmet-mode disaster cython-mode csv-mode csharp-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-go go-mode company-c-headers company-anaconda common-lisp-snippets coffee-mode cmake-mode clang-format chruby bundler inf-ruby auto-yasnippet yasnippet ansible-doc ansible anaconda-mode pythonic alchemist company elixir-mode ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spacemacs-theme spaceline restart-emacs request rainbow-delimiters quelpa popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (insert-shebang fish-mode company-shell slack emojify circe oauth2 websocket ht shut-up f s autopair winum unfill solarized-theme restclient-helm ob-restclient madhat2r-theme fuzzy flymd flycheck-credo company-restclient know-your-http-well company-ansible gmail-message-mode ham-mode html-to-markdown edit-server yatemplate ruby-refactor pig-mode key-chord minimap apache-mode dockerfile-mode docker tablist docker-tramp async company-emacs-eclim eclim company-inf-ruby tern-auto-complete phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode bind-key packed avy iedit smartparens bind-map highlight evil helm helm-core projectile hydra dash helm-dash dash-at-point reveal-in-osx-finder rainbow-mode rainbow-identifiers pbcopy osx-trash osx-dictionary launchctl flycheck-pos-tip color-identifiers-mode erlang synonymous x86-lookup nasm-mode list-themes-here-theme vmd-mode zonokai-theme zenburn-theme zen-and-art-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme tronesque-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme pastels-on-dark-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme niflheim-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme firebelly-theme farmhouse-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme company-quickhelp pos-tip color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme smex yapfify yaml-mode xterm-color web-mode web-beautify vagrant-tramp vagrant tide typescript-mode tagedit swift-mode sql-indent spotify smeargle slime-company slime slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restclient rbenv pyvenv pytest pyenv-mode py-isort pug-mode projectile-rails rake inflections pip-requirements orgit org-projectile org-present org-pomodoro alert log4e gntp org-download omnisharp ob-http ob-elixir org nginx-mode mwim multi-term mmm-mode minitest markdown-toc markdown-mode magit-gitflow livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc jinja2-mode hy-mode htmlize helm-spotify multi helm-pydoc helm-gitignore helm-css-scss helm-company helm-c-yasnippet haml-mode go-guru go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck-mix flycheck feature-mode evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help engine-mode emmet-mode disaster cython-mode csv-mode csharp-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-go go-mode company-c-headers company-anaconda common-lisp-snippets coffee-mode cmake-mode clang-format chruby bundler inf-ruby auto-yasnippet yasnippet ansible-doc ansible anaconda-mode pythonic alchemist company elixir-mode ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spacemacs-theme spaceline restart-emacs request rainbow-delimiters quelpa popwin persp-mode pcre2el paradox org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu elisp-slime-nav dumb-jump define-word column-enforce-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
